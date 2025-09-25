@@ -1,0 +1,583 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Nikhil Chouhan - Graphics Programmer</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+		
+		<script>
+			(function() {
+				const savedTheme = localStorage.getItem('theme') || 'dark';
+				document.documentElement.setAttribute('data-theme', savedTheme);
+			})();
+		</script>
+		<style>
+			:root {
+				--bg-primary: #ffffff;
+				--bg-secondary: #f8fafc;
+				--bg-tertiary: #ffffff;
+				--text-primary: #1e293b;
+				--text-secondary: #000000;
+				--text-accent: #3b82f6;
+				--border-color: #e2e8f0;
+				--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+				--shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+				--gradient: linear-gradient(#b5c08d);
+			}
+
+			[data-theme="dark"] {
+				--bg-primary: #0f172a;
+				--bg-secondary: #1e293b;
+				--bg-tertiary: #334155;
+				--text-primary: #f1f5f9;
+				--text-secondary: #ebecee;
+				--text-accent: #60a5fa;
+				--border-color: #475569;
+				--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+				--shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+				--gradient: linear-gradient(#679c7d);
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+				line-height: 1.6;
+				background-color: var(--bg-primary);
+				color: var(--text-primary);
+				transition: background-color 0.3s ease, color 0.3s ease;
+			}
+
+			.theme-toggle {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 1000;
+				background: var(--bg-tertiary);
+				border: 1px solid var(--border-color);
+				border-radius: 50px;
+				width: 50px;
+				height: 50px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				box-shadow: var(--shadow);
+				transition: all 0.3s ease;
+				font-size: 20px;
+			}
+
+			.theme-toggle:hover {
+				transform: scale(1.1);
+				box-shadow: var(--shadow-hover);
+			}
+			#main > section.dark h2, #main > section.dark h3, #main > section.dark h4, #main > section.dark h5, #main > section.dark h6 {
+    color: var(--text-primary);
+}
+#main > section.dark strong {
+    color: var(--text-primary);
+    border-color: inherit;
+}
+
+			#header {
+				background: var(--bg-secondary);
+				border-right: 1px solid var(--border-color);
+				transition: background-color 0.3s ease;
+			}
+
+			#logo h1 {
+				color: var(--text-primary);
+				font-weight: 700;
+			}
+
+			#logo p {
+				color: var(--text-secondary);
+				font-weight: 500;
+			}
+
+			#nav ul li a {
+				color: var(--text-secondary);
+				transition: color 0.3s ease;
+			}
+
+			#nav ul li a:hover, #nav ul li a.active {
+				color: var(--text-accent);
+			}
+
+			.icons li a {
+				color: var(--text-secondary);
+				transition: color 0.3s ease;
+			}
+
+			.icons li a:hover {
+				color: var(--text-accent);
+			}
+
+			#main {
+				background: var(--bg-primary);
+				transition: background-color 0.3s ease;
+			}
+
+			section {
+				background: var(--bg-primary);
+				transition: background-color 0.3s ease;
+			}
+			
+			#main > section {
+				background-image: none;
+			}
+			#main > section.one {
+				background-color: var(--bg-primary);
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+				font-family: 'Inter', sans-serif;
+				font-weight: 700;
+				color: var(--text-primary);
+				line-height: 1.2;
+			}
+
+			p {
+				font-size: 1.1rem;
+				color: var(--text-secondary);
+				margin-bottom: 1.5rem;
+			}
+
+			.container {
+				max-width: 1200px;
+			}
+			/* Portfolio css */
+			#main #portfolio {
+				background: var(--bg-secondary);
+				padding: 6rem 0;
+			}
+
+			#portfolio .container > p {
+				text-align: center;
+				font-size: 1.2rem;
+				margin-bottom: 4rem;
+				color: var(--text-secondary);
+				max-width: 800px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5rem;
+				justify-content: center;
+			}
+
+			.col-4 {
+				flex: 1;
+				min-width: 320px;
+				max-width: 380px;
+			}
+
+			.item {
+				background: var(--bg-primary);
+				border-radius: 16px;
+				overflow: hidden;
+				box-shadow: var(--shadow);
+				margin-bottom: 2.5rem;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				border: 1px solid var(--border-color);
+			}
+
+			.item:hover {
+				transform: translateY(-8px);
+				box-shadow: var(--shadow-hover);
+			}
+
+			.image.fit {
+				display: block;
+				width: 100%;
+				height: 280px;
+				overflow: hidden;
+				position: relative;
+			}
+
+			.image.fit img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
+				transition: transform 0.4s ease;
+				filter: brightness(0.95);
+			}
+
+			.image.fit:hover img {
+				transform: scale(1.05);
+				filter: brightness(1);
+			}
+
+			.item header {
+				padding: 2rem;
+				background: var(--bg-primary);
+			}
+
+			.item header h3 {
+				margin: 0;
+				font-size: 1.3rem;
+				font-weight: 600;
+				line-height: 1.3;
+			}
+			#portfolio .item header h3 a {
+				color: var(--text-primary);
+				text-decoration: none;
+				transition: color 0.3s ease;
+			}
+
+			#portfolio .item header h3 a:hover {
+				color: var(--text-accent);
+			}
+
+			/* About Section Styles */
+			#main #about {
+				background: var(--bg-primary);
+				padding: 6rem 0;
+			}
+
+			#about .container {
+				max-width: 1200px;
+				text-align: center;
+			}
+
+			#about header {
+				text-align: center;
+				margin-bottom: 3rem;
+			}
+
+			#about p {
+				margin-left: auto;
+				margin-right: auto;
+				text-align: left;
+			}
+
+			#about a {
+				color: var(--text-accent);
+				text-decoration: none;
+				font-weight: 500;
+				transition: color 0.3s ease;
+			}
+
+			#about a:hover {
+				text-decoration: underline;
+			}
+
+			/* Contact Section Styles */
+			#main #contact {
+				background: var(--bg-secondary);
+				padding: 6rem 0;
+			}
+
+			#contact form input, #contact form textarea {
+				background: var(--bg-primary);
+				border: 1px solid var(--border-color);
+				color: var(--text-primary);
+				border-radius: 8px;
+				transition: border-color 0.3s ease;
+			}
+
+			#contact form input:focus, #contact form textarea:focus {
+				border-color: var(--text-accent);
+				outline: none;
+			}
+
+			#contact form input[type="submit"] {
+				background: var(--gradient);
+				color: white;
+				border: none;
+				font-weight: 600;
+				transition: transform 0.3s ease;
+			}
+
+			#contact form input[type="submit"]:hover {
+				transform: translateY(-2px);
+			}
+
+			.button {
+				background: var(--gradient);
+				color: white;
+				border: none;
+				border-radius: 50px;
+				padding: 1rem 2rem;
+				font-weight: 600;
+				text-decoration: none;
+				display: inline-block;
+				transition: transform 0.3s ease;
+			}
+
+			.button:hover {
+				transform: translateY(-2px);
+				color: white;
+			}
+
+			#footer {
+				padding: 1rem 0;
+				background: var(--bg-tertiary);
+				border-top: 1px solid var(--border-color);
+				color: var(--text-secondary);
+			}
+
+			code, .code {
+				font-family: 'JetBrains Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+			}
+
+			/* Mobile responsiveness */
+			@media (max-width: 768px) {
+				.col-4 {
+					min-width: 100%;
+					max-width: 100%;
+				}
+
+				.row {
+					gap: 1.5rem;
+				}
+
+				.image.fit {
+					height: 220px;
+				}
+
+				h2 {
+					font-size: 2rem;
+				}
+
+				.theme-toggle {
+					top: 15px;
+					right: 15px;
+					width: 45px;
+					height: 45px;
+				}
+
+				#portfolio, #about, #contact {
+					padding: 4rem 0;
+				}
+			}
+
+			@media (max-width: 480px) {
+				.item header {
+					padding: 1.5rem;
+				}
+
+				.item header h3 {
+					font-size: 1.2rem;
+				}
+
+				.image.fit {
+					height: 200px;
+				}
+
+				p {
+					font-size: 1rem;
+				}
+
+				#about p {
+					font-size: 1.1rem;
+				}
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<div class="theme-toggle" onclick="toggleTheme()">
+			<span id="theme-icon">🌙</span>
+		</div>
+
+		<div id="header">
+			<div class="top">
+				<div id="logo">
+					<span class="image avatar48"><img src="images/image.png" alt="" /></span>
+					<h1 id="title">Nikhil Chouhan</h1>
+					<p>Graphics' Enthusiast</p>
+				</div>
+
+				<nav id="nav">
+					<ul>
+						<li><a href="#top" id="top-link"><span class="icon solid fa-home">Welcome</span></a></li>
+						<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">Showcase</span></a></li>
+						<li><a href="#about" id="about-link"><span class="icon solid fa-user">My Journey</span></a></li>
+						<li><a href="resume.pdf" target="_blank"><span class="icon solid fa-file">Resume</span></a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="bottom">
+				<ul class="icons">
+					<li><a href="https://github.com/NikChouhan" class="icon brands fa-github"><span class="label">Github</span></a></li>
+					<li><a href="mailto:nikhilchouhan2020@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="main">
+			<section id="top" class="one dark cover">
+				<div class="container">
+					<header>
+						<h2 class="alt">Hi! This is <strong>Nikhil</strong></h2>
+						<p>BTech'25 UG in Production and Industrial Engineering at IIT Roorkee<br>
+						C++ developer building graphical renderers in Vulkan/DX12<br>
+						GPU enthusiast with knowledge of RDNA & Ampere architectures</p>
+					</header>
+
+					<footer>
+						<a href="#portfolio" class="button scrolly">Portfolio</a>
+					</footer>
+				</div>
+			</section>
+
+			<section id="portfolio" class="two">
+				<div class="container">
+					<header>
+						<h2>Project Showcase</h2>
+					</header>
+
+					<p>Graphics renderers across OpenGL, D3D11, Vulkan, and D3D12. CPU ray tracer with multi-threading. GJK collision detection visualizer.</p>
+
+					<div class="row">
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="https://www.youtube.com/watch?v=53yND-mIrjk" class="image fit">
+									<img src="images/vulkan/cravillac.png" alt="Cravilac: Vulkan renderer" />
+								</a>
+								<header>
+									<h3><a href="https://github.com/NikChouhan/cravillac">Cravillac: Vulkan Renderer</a></h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="https://youtu.be/2HhVvxBO0oEK" class="image fit">
+									<img src="images/d3d12/luma.png" alt="Luma: D3D12 Renderer" />
+								</a>
+								<header>
+									<h3><a href="https://github.com/NikChouhan/Luma">Luma: D3D12 Renderer</a></h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="https://youtu.be/MUCFocGJiXQ" class="image fit">
+									<img src="images/gjk_pol_col/polcol_gjk.png" alt="Polygon collision visualizer" />
+								</a>
+								<header>
+									<h3><a href="https://github.com/NikChouhan/PolCol">GJK Collision Visualizer</a></h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="https://youtu.be/cwVj2QjbbvQ" class="image fit">
+									<img src="images/d3d11/spar.png" alt="Spar: D3D11 Renderer" />
+								</a>
+								<header>
+									<h3><a href="https://github.com/NikChouhan/Spar">D3D11 Renderer</a></h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="https://github.com/NikChouhan/parallel_tracer" class="image fit">
+									<img src="images/ray_tracer_smt/parallel_tracer.png" alt="CPU Ray Tracer" />
+								</a>
+								<header>
+									<h3><a href="https://github.com/NikChouhan/parallel_tracer">CPU Ray Tracer</a></h3>
+								</header>
+							</article>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="about" class="three">
+				<div class="container">
+					<header>
+						<h2>My Journey</h2>
+					</header>
+
+					<p>
+						My graphics journey began a few years ago (~2017) when I broke my Linux desktop environment and discovered the Mesa graphics stack. 
+						I headed over to GitLab and while the codebase flew over my head, something about the userspace drivers sparked my curiosity. 
+						I learned a lot about it for a year or so before I got involved with JEE exams.
+					</p>
+					
+					<p>
+						I got myself enrolled at IIT Roorkee and started my gamedev/graphics programming journey with Unity and Unreal Engine and landed an internship working with UE5. Then joined the ACM group where I found my community. 
+						Everything clicked when I wrote my first OpenGL renderer following the <a href="https://learnopengl.com/" target="_blank">LearnOpenGL</a> tutorial. 
+						That same excitement returned as I rendered my first Vulkan triangle (three times before the API stuck), dove into the Vulkan spec, and studied multiple GPU architectures.
+					</p>
+					
+					<p>
+						Since then, I've built renderers across all major graphics APIs and experimented with shaders. 
+						Currently (re)exploring Godot and Unreal Engine, and their source code, to understand graphics from a higher level perspective.
+					</p>
+				</div>
+			</section>
+
+			<!-- <section id="contact" class="four">
+				<div class="container">
+					<header>
+						<h2>Contact</h2>
+					</header>
+					<form method="post" action="#">
+						<div class="row">
+							<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
+							<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+							<div class="col-12">
+								<textarea name="message" placeholder="Message"></textarea>
+							</div>
+							<div class="col-12">
+								<input type="submit" value="Send Message" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</section> -->
+		</div>
+
+		<div id="footer">
+			<ul class="copyright">
+				<li>Made with <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+		<script>
+			function toggleTheme() {
+				const html = document.documentElement;
+				const themeIcon = document.getElementById('theme-icon');
+				const currentTheme = html.getAttribute('data-theme');
+				
+				if (currentTheme === 'dark') {
+					html.setAttribute('data-theme', 'light');
+					themeIcon.textContent = '🌙';
+					localStorage.setItem('theme', 'light');
+				} else {
+					html.setAttribute('data-theme', 'dark');
+					themeIcon.textContent = '☀️';
+					localStorage.setItem('theme', 'dark');
+				}
+			}
+			function loadTheme() {
+				const savedTheme = localStorage.getItem('theme') || 'light';
+				const html = document.documentElement;
+				const themeIcon = document.getElementById('theme-icon');
+				
+				html.setAttribute('data-theme', savedTheme);
+				themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+			}
+
+			document.addEventListener('DOMContentLoaded', loadTheme);
+		</script>
+	</body>
+</html>
