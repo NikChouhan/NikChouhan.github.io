@@ -1,583 +1,795 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Nikhil Chouhan - Graphics Programmer</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-		
-		<script>
-			(function() {
-				const savedTheme = localStorage.getItem('theme') || 'dark';
-				document.documentElement.setAttribute('data-theme', savedTheme);
-			})();
-		</script>
-		<style>
-			:root {
-				--bg-primary: #ffffff;
-				--bg-secondary: #f8fafc;
-				--bg-tertiary: #ffffff;
-				--text-primary: #1e293b;
-				--text-secondary: #000000;
-				--text-accent: #3b82f6;
-				--border-color: #e2e8f0;
-				--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-				--shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-				--gradient: linear-gradient(#b5c08d);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Nikhil Chouhan | Graphics Programmer</title>
+	<meta
+		name="description"
+		content="Portfolio of Nikhil Chouhan, a graphics programmer building renderers, tools, and real-time graphics projects."
+	/>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+		rel="stylesheet"
+	/>
+	<style>
+		:root {
+			/* quick palette controls, change the color etc of the page,
+			TODO: add dark mode toggle*/
+			--page-bg: #f3efe7;
+			--surface: #fbf8f2;
+			--surface-strong: #f0eadf;
+			--ink: #1c1a17;
+			--muted: #615b52;
+			--line: #d5ccbd;
+			--accent: #31554a;
+			--accent-soft: #dfe7e2;
+			--shadow: 0 18px 40px rgba(28, 26, 23, 0.08);
+
+			/* quick layout controls, tweak spacing/radius here */
+			--radius-lg: 28px;
+			--radius-md: 18px;
+			--radius-sm: 12px;
+			--site-width: 1180px;
+			--section-gap: clamp(4rem, 8vw, 12rem);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			margin: 0;
+			font-family: "Manrope", sans-serif;
+			background: var(--page-bg);
+			color: var(--ink);
+			line-height: 1.6;
+		}
+
+		img {
+			display: block;
+			max-width: 100%;
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		p {
+			margin: 0;
+			color: var(--muted);
+			font-size: 1.05rem;
+		}
+
+		.page-shell {
+			width: min(calc(100% - 2rem), var(--site-width));
+			margin: 1rem auto;
+			border: 1px solid var(--line);
+			border-radius: 32px;
+			background: var(--surface);
+			box-shadow: var(--shadow);
+			overflow: clip;
+		}
+
+		.site-header {
+			position: sticky;
+			top: 0;
+			z-index: 10;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1.5rem;
+			padding: 1rem clamp(1.2rem, 2vw, 2rem);
+			background: rgba(251, 248, 242, 0.92);
+			backdrop-filter: blur(14px);
+			border-bottom: 1px solid rgba(213, 204, 189, 0.8);
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 0.9rem;
+			min-width: 0;
+		}
+
+		.brand img {
+			width: 54px;
+			height: 54px;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 1px solid var(--line);
+		}
+
+		.brand-text strong,
+		.brand-text span {
+			display: block;
+		}
+
+		.brand-text strong {
+			font-size: 0.98rem;
+			letter-spacing: 0.02em;
+		}
+
+		.brand-text span {
+			font-size: 0.88rem;
+			color: var(--muted);
+		}
+
+		.site-nav {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+			gap: 0.6rem;
+		}
+
+		.site-nav a {
+			padding: 0.72rem 1rem;
+			border-radius: 999px;
+			font-size: 0.92rem;
+			font-weight: 700;
+			color: var(--muted);
+			transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+		}
+
+		.site-nav a:hover,
+		.site-nav a:focus-visible {
+			background: var(--surface-strong);
+			color: var(--ink);
+			transform: translateY(-1px);
+		}
+
+		main {
+			padding: clamp(1.25rem, 2vw, 2rem);
+		}
+
+		section + section {
+			margin-top: var(--section-gap);
+		}
+
+		.hero {
+			display: grid;
+			grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.95fr);
+			gap: 1.5rem;
+			align-items: stretch;
+		}
+
+		.hero-panel,
+		.hero-aside,
+		.card,
+		.story-panel,
+		.footer-panel {
+			border: 1px solid var(--line);
+			border-radius: var(--radius-lg);
+			background: var(--surface);
+		}
+
+		.hero-panel {
+			padding: clamp(2rem, 4vw, 4rem);
+			background:
+				linear-gradient(to bottom, rgba(240, 234, 223, 0.5), rgba(240, 234, 223, 0)),
+				var(--surface);
+		}
+
+		.eyebrow {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			padding: 0.4rem 0.8rem;
+			border-radius: 999px;
+			background: var(--accent-soft);
+			color: var(--accent);
+			font-size: 0.82rem;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.hero h1,
+		.section-title,
+		.story-panel h2 {
+			font-family: "Newsreader", serif;
+			font-weight: 700;
+			letter-spacing: -0.03em;
+			line-height: 0.95;
+			margin: 0;
+		}
+
+		.hero h1 {
+			/* header statement looks stuff */
+			font-size: clamp(2.6rem, 5.6vw, 4.8rem);
+			margin-top: 1.25rem;
+			max-width: 11ch;
+		}
+
+		.hero-copy {
+			max-width: 60ch;
+			margin-top: 1.5rem;
+			font-size: 1.08rem;
+		}
+
+		.hero-copy strong {
+			color: var(--ink);
+		}
+
+		.hero-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.9rem;
+			margin-top: 2rem;
+		}
+
+		.button,
+		.button-secondary {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0.95rem 1.3rem;
+			border-radius: 999px;
+			font-weight: 800;
+			transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+		}
+
+		.button {
+			background: var(--ink);
+			color: #fff;
+		}
+
+		.button-secondary {
+			border: 1px solid var(--line);
+			color: var(--ink);
+			background: transparent;
+		}
+
+		.button:hover,
+		.button-secondary:hover,
+		.button:focus-visible,
+		.button-secondary:focus-visible {
+			transform: translateY(-2px);
+		}
+
+		.hero-meta {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1rem;
+			margin-top: 2.2rem;
+			padding-top: 1.5rem;
+			border-top: 1px solid var(--line);
+		}
+
+		.hero-meta dt,
+		.card-label,
+		.kicker {
+			font-family: "IBM Plex Mono", monospace;
+			display: inline-block;
+			margin-bottom: 0.55rem;
+			font-size: 0.78rem;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: var(--muted);
+		}
+
+		.hero-meta dd {
+			margin: 0.35rem 0 0;
+			font-weight: 800;
+			font-size: 1rem;
+		}
+
+		.hero-aside {
+			padding: 1.4rem;
+			display: grid;
+			gap: 1rem;
+			background: var(--surface-strong);
+		}
+
+		.aside-box {
+			padding: 1rem;
+			border-radius: var(--radius-md);
+			background: rgba(251, 248, 242, 0.7);
+			border: 1px solid rgba(213, 204, 189, 0.9);
+		}
+
+		.aside-box h2,
+		.aside-box h3 {
+			margin: 0 0 0.35rem;
+			font-size: 1rem;
+		}
+
+		.aside-box p + p {
+			margin-top: 0.65rem;
+		}
+
+		.inline-links {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.7rem;
+			margin-top: 0.85rem;
+		}
+
+		.inline-links a {
+			padding-bottom: 0.15rem;
+			border-bottom: 1px solid currentColor;
+			font-weight: 700;
+		}
+
+		.section-heading {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 1rem;
+			margin-bottom: 1.75rem;
+		}
+
+		.section-title {
+			font-size: clamp(2.1rem, 4vw, 3.5rem);
+		}
+
+		.section-note {
+			max-width: 42ch;
+			font-size: 0.98rem;
+		}
+
+		.highlights {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1rem;
+		}
+
+		.card {
+			padding: 1.5rem;
+			min-height: 220px;
+		}
+
+		.card h3 {
+			margin: 1rem 0 0.6rem;
+			font-size: 1.2rem;
+		}
+
+		.projects-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1rem;
+		}
+
+		.project-card {
+			display: grid;
+			grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+			overflow: hidden;
+			padding: 0;
+		}
+
+		.project-media {
+			aspect-ratio: 4 / 3;
+			background: var(--surface-strong);
+		}
+
+		.project-media img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.project-body {
+			padding: 1.4rem;
+			display: flex;
+			flex-direction: column;
+			gap: 0.85rem;
+		}
+
+		.project-body h3 {
+			margin: 0;
+			font-size: 1.3rem;
+		}
+
+		.project-tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+
+		.project-tags span {
+			padding: 0.3rem 0.6rem;
+			border-radius: 999px;
+			background: var(--surface-strong);
+			font-size: 0.82rem;
+			font-weight: 700;
+			color: var(--muted);
+		}
+
+		.project-links {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.9rem;
+			margin-top: auto;
+			padding-top: 0.4rem;
+		}
+
+		.project-links a {
+			font-weight: 800;
+			color: var(--accent);
+		}
+
+		.story-wrap {
+			display: grid;
+			grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+			gap: 1rem;
+		}
+
+		.story-panel {
+			padding: clamp(1.6rem, 3vw, 2.5rem);
+		}
+
+		.story-panel h2 {
+			font-size: clamp(2rem, 4vw, 3rem);
+			margin-bottom: 1rem;
+		}
+
+		.story-text {
+			display: grid;
+			gap: 1rem;
+		}
+
+		.story-text a {
+			color: var(--accent);
+			border-bottom: 1px solid rgba(49, 85, 74, 0.35);
+		}
+
+		.story-side {
+			display: grid;
+			gap: 1rem;
+		}
+
+		.stat {
+			padding: 1.25rem;
+			border-radius: var(--radius-md);
+			border: 1px solid var(--line);
+			background: var(--surface-strong);
+		}
+
+		.stat strong {
+			display: block;
+			font-size: 2rem;
+			line-height: 1;
+			margin: 0.4rem 0;
+		}
+
+		.footer-panel {
+			margin-top: var(--section-gap);
+			padding: 1.4rem clamp(1.25rem, 2vw, 2rem);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.footer-links {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+		}
+
+		.footer-links a {
+			font-weight: 700;
+			color: var(--accent);
+		}
+
+		@media (max-width: 980px) {
+			.page-shell {
+				width: min(calc(100% - 1rem), var(--site-width));
+				margin: 0.5rem auto;
+				border-radius: 24px;
 			}
 
-			[data-theme="dark"] {
-				--bg-primary: #0f172a;
-				--bg-secondary: #1e293b;
-				--bg-tertiary: #334155;
-				--text-primary: #f1f5f9;
-				--text-secondary: #ebecee;
-				--text-accent: #60a5fa;
-				--border-color: #475569;
-				--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-				--shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-				--gradient: linear-gradient(#679c7d);
+			.hero,
+			.story-wrap,
+			.projects-grid,
+			.highlights {
+				grid-template-columns: 1fr;
 			}
 
-			* {
-				box-sizing: border-box;
+			.project-card {
+				grid-template-columns: 1fr;
 			}
 
-			body {
-				font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-				line-height: 1.6;
-				background-color: var(--bg-primary);
-				color: var(--text-primary);
-				transition: background-color 0.3s ease, color 0.3s ease;
+			.section-heading,
+			.footer-panel,
+			.site-header {
+				align-items: flex-start;
+				flex-direction: column;
 			}
 
-			.theme-toggle {
-				position: fixed;
-				top: 20px;
-				right: 20px;
-				z-index: 1000;
-				background: var(--bg-tertiary);
-				border: 1px solid var(--border-color);
-				border-radius: 50px;
-				width: 50px;
-				height: 50px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				cursor: pointer;
-				box-shadow: var(--shadow);
-				transition: all 0.3s ease;
-				font-size: 20px;
+			.site-nav {
+				justify-content: flex-start;
+			}
+		}
+
+		@media (max-width: 640px) {
+			main {
+				padding: 1rem;
 			}
 
-			.theme-toggle:hover {
-				transform: scale(1.1);
-				box-shadow: var(--shadow-hover);
-			}
-			#main > section.dark h2, #main > section.dark h3, #main > section.dark h4, #main > section.dark h5, #main > section.dark h6 {
-    color: var(--text-primary);
-}
-#main > section.dark strong {
-    color: var(--text-primary);
-    border-color: inherit;
-}
-
-			#header {
-				background: var(--bg-secondary);
-				border-right: 1px solid var(--border-color);
-				transition: background-color 0.3s ease;
+			.hero-panel,
+			.story-panel,
+			.card,
+			.hero-aside {
+				border-radius: 22px;
 			}
 
-			#logo h1 {
-				color: var(--text-primary);
-				font-weight: 700;
+			.hero h1 {
+				max-width: 8ch;
 			}
 
-			#logo p {
-				color: var(--text-secondary);
-				font-weight: 500;
+			.hero-meta {
+				grid-template-columns: 1fr;
 			}
 
-			#nav ul li a {
-				color: var(--text-secondary);
-				transition: color 0.3s ease;
+			.brand {
+				align-items: flex-start;
 			}
 
-			#nav ul li a:hover, #nav ul li a.active {
-				color: var(--text-accent);
+			.brand img {
+				width: 46px;
+				height: 46px;
 			}
+		}
+	</style>
+</head>
+<body>
+	<div class="page-shell">
+		<header class="site-header">
+			<a class="brand" href="#top" aria-label="Go to top">
+				<img src="images/image.png" alt="Portrait of Nikhil Chouhan" />
+				<div class="brand-text">
+					<strong>Nikhil Chouhan</strong>
+					<span>Graphics programmer and rendering enthusiast</span>
+				</div>
+			</a>
 
-			.icons li a {
-				color: var(--text-secondary);
-				transition: color 0.3s ease;
-			}
+			<nav class="site-nav" aria-label="Primary">
+				<a href="#work">Work</a>
+				<a href="#about">About</a>
+				<a href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+				<a href="https://github.com/NikChouhan" target="_blank" rel="noreferrer">GitHub</a>
+			</nav>
+		</header>
 
-			.icons li a:hover {
-				color: var(--text-accent);
-			}
+		<main id="top">
+			<section class="hero" aria-labelledby="hero-title">
+				<div class="hero-panel">
+					<span class="eyebrow">Rendering • Tools • Real-Time Graphics</span>
+					<h1 id="hero-title">Low-level graphics and engine systems. Vulkan, D3D12, the stuff underneath.</h1>
+					<p class="hero-copy">
+						I'm <strong>Nikhil Chouhan</strong>, a BTech'25 graduate from IIT Roorkee focused on
+						rendering, graphics programming, and GPU-oriented systems. I like building engines and
+						tools that turn low-level graphics concepts into something tangible on screen.
+					</p>
 
-			#main {
-				background: var(--bg-primary);
-				transition: background-color 0.3s ease;
-			}
+					<div class="hero-actions">
+						<a class="button" href="#work">See selected work</a>
+						<a class="button-secondary" href="mailto:nikhilchouhan2002@gmail.com">Email me</a>
+					</div>
 
-			section {
-				background: var(--bg-primary);
-				transition: background-color 0.3s ease;
-			}
-			
-			#main > section {
-				background-image: none;
-			}
-			#main > section.one {
-				background-color: var(--bg-primary);
-			}
-
-			h1, h2, h3, h4, h5, h6 {
-				font-family: 'Inter', sans-serif;
-				font-weight: 700;
-				color: var(--text-primary);
-				line-height: 1.2;
-			}
-
-			p {
-				font-size: 1.1rem;
-				color: var(--text-secondary);
-				margin-bottom: 1.5rem;
-			}
-
-			.container {
-				max-width: 1200px;
-			}
-			/* Portfolio css */
-			#main #portfolio {
-				background: var(--bg-secondary);
-				padding: 6rem 0;
-			}
-
-			#portfolio .container > p {
-				text-align: center;
-				font-size: 1.2rem;
-				margin-bottom: 4rem;
-				color: var(--text-secondary);
-				max-width: 800px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-
-			.row {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2.5rem;
-				justify-content: center;
-			}
-
-			.col-4 {
-				flex: 1;
-				min-width: 320px;
-				max-width: 380px;
-			}
-
-			.item {
-				background: var(--bg-primary);
-				border-radius: 16px;
-				overflow: hidden;
-				box-shadow: var(--shadow);
-				margin-bottom: 2.5rem;
-				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-				border: 1px solid var(--border-color);
-			}
-
-			.item:hover {
-				transform: translateY(-8px);
-				box-shadow: var(--shadow-hover);
-			}
-
-			.image.fit {
-				display: block;
-				width: 100%;
-				height: 280px;
-				overflow: hidden;
-				position: relative;
-			}
-
-			.image.fit img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				object-position: center;
-				transition: transform 0.4s ease;
-				filter: brightness(0.95);
-			}
-
-			.image.fit:hover img {
-				transform: scale(1.05);
-				filter: brightness(1);
-			}
-
-			.item header {
-				padding: 2rem;
-				background: var(--bg-primary);
-			}
-
-			.item header h3 {
-				margin: 0;
-				font-size: 1.3rem;
-				font-weight: 600;
-				line-height: 1.3;
-			}
-			#portfolio .item header h3 a {
-				color: var(--text-primary);
-				text-decoration: none;
-				transition: color 0.3s ease;
-			}
-
-			#portfolio .item header h3 a:hover {
-				color: var(--text-accent);
-			}
-
-			/* About Section Styles */
-			#main #about {
-				background: var(--bg-primary);
-				padding: 6rem 0;
-			}
-
-			#about .container {
-				max-width: 1200px;
-				text-align: center;
-			}
-
-			#about header {
-				text-align: center;
-				margin-bottom: 3rem;
-			}
-
-			#about p {
-				margin-left: auto;
-				margin-right: auto;
-				text-align: left;
-			}
-
-			#about a {
-				color: var(--text-accent);
-				text-decoration: none;
-				font-weight: 500;
-				transition: color 0.3s ease;
-			}
-
-			#about a:hover {
-				text-decoration: underline;
-			}
-
-			/* Contact Section Styles */
-			#main #contact {
-				background: var(--bg-secondary);
-				padding: 6rem 0;
-			}
-
-			#contact form input, #contact form textarea {
-				background: var(--bg-primary);
-				border: 1px solid var(--border-color);
-				color: var(--text-primary);
-				border-radius: 8px;
-				transition: border-color 0.3s ease;
-			}
-
-			#contact form input:focus, #contact form textarea:focus {
-				border-color: var(--text-accent);
-				outline: none;
-			}
-
-			#contact form input[type="submit"] {
-				background: var(--gradient);
-				color: white;
-				border: none;
-				font-weight: 600;
-				transition: transform 0.3s ease;
-			}
-
-			#contact form input[type="submit"]:hover {
-				transform: translateY(-2px);
-			}
-
-			.button {
-				background: var(--gradient);
-				color: white;
-				border: none;
-				border-radius: 50px;
-				padding: 1rem 2rem;
-				font-weight: 600;
-				text-decoration: none;
-				display: inline-block;
-				transition: transform 0.3s ease;
-			}
-
-			.button:hover {
-				transform: translateY(-2px);
-				color: white;
-			}
-
-			#footer {
-				padding: 1rem 0;
-				background: var(--bg-tertiary);
-				border-top: 1px solid var(--border-color);
-				color: var(--text-secondary);
-			}
-
-			code, .code {
-				font-family: 'JetBrains Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
-			}
-
-			/* Mobile responsiveness */
-			@media (max-width: 768px) {
-				.col-4 {
-					min-width: 100%;
-					max-width: 100%;
-				}
-
-				.row {
-					gap: 1.5rem;
-				}
-
-				.image.fit {
-					height: 220px;
-				}
-
-				h2 {
-					font-size: 2rem;
-				}
-
-				.theme-toggle {
-					top: 15px;
-					right: 15px;
-					width: 45px;
-					height: 45px;
-				}
-
-				#portfolio, #about, #contact {
-					padding: 4rem 0;
-				}
-			}
-
-			@media (max-width: 480px) {
-				.item header {
-					padding: 1.5rem;
-				}
-
-				.item header h3 {
-					font-size: 1.2rem;
-				}
-
-				.image.fit {
-					height: 200px;
-				}
-
-				p {
-					font-size: 1rem;
-				}
-
-				#about p {
-					font-size: 1.1rem;
-				}
-			}
-		</style>
-	</head>
-	<body class="is-preload">
-
-		<div class="theme-toggle" onclick="toggleTheme()">
-			<span id="theme-icon">🌙</span>
-		</div>
-
-		<div id="header">
-			<div class="top">
-				<div id="logo">
-					<span class="image avatar48"><img src="images/image.png" alt="" /></span>
-					<h1 id="title">Nikhil Chouhan</h1>
-					<p>Graphics' Enthusiast</p>
+					<dl class="hero-meta">
+						<div>
+							<dt>Primary focus</dt>
+							<dd>Graphics programming</dd>
+						</div>
+						<div>
+							<dt>Main stack</dt>
+							<dd>C++, Vulkan, D3D12</dd>
+						</div>
+						<div>
+							<dt>Interests</dt>
+							<dd>Renderers, shaders, GPU architecture</dd>
+						</div>
+					</dl>
 				</div>
 
-				<nav id="nav">
-					<ul>
-						<li><a href="#top" id="top-link"><span class="icon solid fa-home">Welcome</span></a></li>
-						<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">Showcase</span></a></li>
-						<li><a href="#about" id="about-link"><span class="icon solid fa-user">My Journey</span></a></li>
-						<li><a href="resume.pdf" target="_blank"><span class="icon solid fa-file">Resume</span></a></li>
-					</ul>
-				</nav>
-			</div>
+				<aside class="hero-aside" aria-label="Quick profile">
+					<div class="aside-box">
+						<div class="card-label">Current direction</div>
+						<h2>Studying graphics from both engine and API levels.</h2>
+						<p>
+							Right now I'm exploring Unreal Engine, Godot, renderer design, and how modern GPU
+							architectures shape real-world graphics code. Anew renderer, Zephyr, is also in works
+							that uses NVRHI as a base to work on modern techniques. 
+						</p>
+					</div>
 
-			<div class="bottom">
-				<ul class="icons">
-					<li><a href="https://github.com/NikChouhan" class="icon brands fa-github"><span class="label">Github</span></a></li>
-					<li><a href="mailto:nikhilchouhan2002@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-				</ul>
-			</div>
-		</div>
+					<div class="aside-box">
+						<div class="card-label">What I'm focused on</div>
+						<h3>Explicit APIs, engine internals, GPU behavior.</h3>
+						<p>I care about understanding the full path from draw call to pixel — synchronization, memory layout, pipeline state, and why the driver does what it does.</p>
+						<div class="inline-links">
+							<a href="https://github.com/NikChouhan" target="_blank" rel="noreferrer">GitHub</a>
+							<a href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+						</div>
+					</div>
+				</aside>
+			</section>
 
-		<div id="main">
-			<section id="top" class="one dark cover">
-				<div class="container">
-					<header>
-						<h2 class="alt">Hi! This is <strong>Nikhil</strong></h2>
-						<p>BTech'25 UG in Production and Industrial Engineering at IIT Roorkee<br>
-						C++ developer building graphical renderers in Vulkan/DX12<br>
-						GPU enthusiast with knowledge of RDNA & Ampere architectures</p>
-					</header>
+			<section aria-labelledby="focus-title">
+				<div class="section-heading">
+					<div>
+						<div class="kicker">Focus</div>
+						<h2 class="section-title" id="focus-title">What my work tends to orbit around</h2>
+					</div>
+				</div>
 
-					<footer>
-						<a href="#portfolio" class="button scrolly">Portfolio</a>
-					</footer>
+				<div class="highlights">
+					<article class="card">
+						<div class="card-label">Rendering APIs</div>
+						<h3>Working across the graphics stack</h3>
+						<p>I've built projects in OpenGL, D3D11, Vulkan, and D3D12 to understand the tradeoffs each API exposes.</p>
+					</article>
+
+					<article class="card">
+						<div class="card-label">Systems Thinking</div>
+						<h3>Architecture over polish</h3>
+						<p>Frame flow, synchronization, resource lifetimes, memory layout. I'm very much interested in how a renderer is structured than how it looks in a screenshot.
+							The payoff with proper architecture is insane, they don't realise</p>
+					</article>
+
+					<article class="card">
+						<div class="card-label">GPU Architecture</div>
+						<h3>Hardware shapes the code</h3>
+						<p>RDNA, Ampere, occupancy, wavefronts, bandwidth. Understanding what the hardware actually does changes how you write shaders and structure pipelines.</p>
+					</article>
 				</div>
 			</section>
 
-			<section id="portfolio" class="two">
-				<div class="container">
-					<header>
-						<h2>Project Showcase</h2>
-					</header>
+			<section id="work" aria-labelledby="work-title">
+				<div class="section-heading">
+					<div>
+						<div class="kicker">Selected Work</div>
+						<h2 class="section-title" id="work-title">A few projects worth opening</h2>
+					</div>
+				</div>
 
-					<p>Graphics renderers across OpenGL, D3D11, Vulkan, and D3D12. CPU ray tracer with multi-threading. GJK collision detection visualizer.</p>
+				<div class="projects-grid">
 
-					<div class="row">
-						<div class="col-4 col-12-mobile">
-							<article class="item">
-								<a href="https://www.youtube.com/watch?v=53yND-mIrjk" class="image fit">
-									<img src="images/vulkan/cravillac.png" alt="Cravilac: Vulkan renderer" />
-								</a>
-								<header>
-									<h3><a href="https://github.com/NikChouhan/cravillac">Cravillac: Vulkan Renderer</a></h3>
-								</header>
-							</article>
-							<article class="item">
-								<a href="https://www.youtube.com/watch?v=uKNqz9W5zF4" class="image fit">
-									<img src="images/d3d12/luma.png" alt="Luma: D3D12 Renderer" />
-								</a>
-								<header>
-									<h3><a href="https://github.com/NikChouhan/Luma">Luma: D3D12 Renderer</a></h3>
-								</header>
-							</article>
+					<article class="card project-card">
+						<a class="project-media" href="https://youtu.be/NRO9QcMz7NA" target="_blank" rel="noreferrer">
+							<img src="images/d3d12/luma.png" alt="Preview of the Luma D3D12 renderer" />
+						</a>
+						<div class="project-body">
+							<div class="card-label">D3D12</div>
+							<h3>Luma</h3>
+							<p>A Direct3D 12 renderer exploring modern graphics concepts through explicit resource and pipeline management.</p>
+							<div class="project-tags">
+								<span>C++</span>
+								<span>D3D12</span>
+								<span>Real-Time</span>
+							</div>
+							<div class="project-links">
+								<a href="https://github.com/NikChouhan/Luma" target="_blank" rel="noreferrer">Source</a>
+								<a href="https://www.youtube.com/watch?v=uKNqz9W5zF4" target="_blank" rel="noreferrer">Video</a>
+							</div>
 						</div>
-						<div class="col-4 col-12-mobile">
-							<article class="item">
-								<a href="https://youtu.be/MUCFocGJiXQ" class="image fit">
-									<img src="images/gjk_pol_col/polcol_gjk.png" alt="Polygon collision visualizer" />
-								</a>
-								<header>
-									<h3><a href="https://github.com/NikChouhan/PolCol">GJK Collision Visualizer</a></h3>
-								</header>
-							</article>
-							<article class="item">
-								<a href="https://youtu.be/cwVj2QjbbvQ" class="image fit">
-									<img src="images/d3d11/spar.png" alt="Spar: D3D11 Renderer" />
-								</a>
-								<header>
-									<h3><a href="https://github.com/NikChouhan/Spar">D3D11 Renderer</a></h3>
-								</header>
-							</article>
+					</article>
+
+					<article class="card project-card">
+						<a class="project-media" href="https://www.youtube.com/watch?v=53yND-mIrjk" target="_blank" rel="noreferrer">
+							<img src="images/vulkan/cravillac.png" alt="Preview of the Cravillac Vulkan renderer" />
+						</a>
+						<div class="project-body">
+							<div class="card-label">Vulkan</div>
+							<h3>Cravillac</h3>
+							<p>A Vulkan renderer built to get comfortable with explicit graphics programming and renderer structure.</p>
+							<div class="project-tags">
+								<span>C++</span>
+								<span>Vulkan</span>
+								<span>Renderer</span>
+							</div>
+							<div class="project-links">
+								<a href="https://github.com/NikChouhan/cravillac" target="_blank" rel="noreferrer">Source</a>
+								<a href="https://www.youtube.com/watch?v=53yND-mIrjk" target="_blank" rel="noreferrer">Video</a>
+							</div>
 						</div>
-						<div class="col-4 col-12-mobile">
-							<article class="item">
-								<a href="https://github.com/NikChouhan/parallel_tracer" class="image fit">
-									<img src="images/ray_tracer_smt/parallel_tracer.png" alt="CPU Ray Tracer" />
-								</a>
-								<header>
-									<h3><a href="https://github.com/NikChouhan/parallel_tracer">CPU Ray Tracer</a></h3>
-								</header>
-							</article>
+					</article>
+
+					<article class="card project-card">
+						<a class="project-media" href="https://youtu.be/MUCFocGJiXQ" target="_blank" rel="noreferrer">
+							<img src="images/gjk_pol_col/polcol_gjk.png" alt="Preview of the GJK collision visualizer" />
+						</a>
+						<div class="project-body">
+							<div class="card-label">Geometry/Physics</div>
+							<h3>GJK Collision Visualizer</h3>
+							<p>A visualizer for collision detection ideas, built to make the algorithm easier to reason about and inspect.</p>
+							<div class="project-tags">
+								<span>C++</span>
+								<span>GJK</span>
+								<span>Visualization</span>
+							</div>
+							<div class="project-links">
+								<a href="https://github.com/NikChouhan/PolCol" target="_blank" rel="noreferrer">Source</a>
+								<a href="https://youtu.be/MUCFocGJiXQ" target="_blank" rel="noreferrer">Video</a>
+							</div>
+						</div>
+					</article>
+
+					<article class="card project-card">
+						<a class="project-media" href="https://github.com/NikChouhan/parallel_tracer" target="_blank" rel="noreferrer">
+							<img src="images/ray_tracer_smt/parallel_tracer.png" alt="Preview of the CPU ray tracer" />
+						</a>
+						<div class="project-body">
+							<div class="card-label">Offline Rendering</div>
+							<h3>Parallel CPU Ray Tracer</h3>
+							<p>A multithreaded ray tracer focused on fundamentals, performance awareness, and understanding light transport from the ground up.</p>
+							<div class="project-tags">
+								<span>C++</span>
+								<span>Multithreading</span>
+								<span>Ray Tracing</span>
+							</div>
+							<div class="project-links">
+								<a href="https://github.com/NikChouhan/parallel_tracer" target="_blank" rel="noreferrer">Source</a>
+							</div>
+						</div>
+					</article>
+				</div>
+			</section>
+
+			<section id="about" aria-labelledby="about-title">
+				<div class="story-wrap">
+					<div class="story-panel">
+						<div class="kicker">About</div>
+						<h2 id="about-title">My path into graphics started with curiosity and broken Linux.</h2>
+						<div class="story-text">
+							<p>
+								Around 2017, I broke my Linux desktop and ended up discovering the Mesa graphics stack.
+								I didn't fully understand the code at the time, but the userspace drivers were enough
+								to make graphics programming feel mysterious in a good way.
+							</p>
+							<p>
+								Later at IIT Roorkee, I moved through Unity, Unreal Engine, and graphics communities on
+								campus before writing my first renderer through
+								<a href="https://learnopengl.com/" target="_blank" rel="noreferrer">LearnOpenGL</a>.
+								That was the turning point where the subject stopped feeling distant and started
+								feeling buildable.
+							</p>
+							<p>
+								Since then, I've kept circling back to the same question: how do modern graphics systems
+								actually fit together? That question keeps pulling me into APIs, engines, shaders, and GPU
+								architecture.
+							</p>
+						</div>
+					</div>
+
+					<div class="story-side">
+						<div class="stat">
+							<div class="card-label">Gfx API stronghold</div>
+							<strong>4+</strong>
+							<p>OpenGL, D3D11, Vulkan, and D3D12.</p>
+						</div>
+						<div class="stat">
+							<div class="card-label">Interests</div>
+							<strong>Renderers</strong>
+							<p>Shader workflows, engine internals, and GPU-facing systems.</p>
+						</div>
+						<div class="stat">
+							<div class="card-label">Currently reading</div>
+							<strong>GPU Arch</strong>
+							<p>RDNA and Ampere microarchitecture docs. Understanding the silicon informs the code.</p>
 						</div>
 					</div>
 				</div>
 			</section>
 
-			<section id="about" class="three">
-				<div class="container">
-					<header>
-						<h2>My Journey</h2>
-					</header>
-
-					<p>
-						My graphics journey began a few years ago (~2017) when I broke my Linux desktop environment and discovered the Mesa graphics stack. 
-						I headed over to GitLab and while the codebase flew over my head, something about the userspace drivers sparked my curiosity. 
-						I learned a lot about it for a year or so before I got involved with JEE exams.
-					</p>
-					
-					<p>
-						I got myself enrolled at IIT Roorkee and started my gamedev/graphics programming journey with Unity and Unreal Engine and landed an internship working with UE5. Then joined the ACM group where I found my community. 
-						Everything clicked when I wrote my first OpenGL renderer following the <a href="https://learnopengl.com/" target="_blank">LearnOpenGL</a> tutorial. 
-						That same excitement returned as I rendered my first Vulkan triangle (three times before the API stuck), dove into the Vulkan spec, and studied multiple GPU architectures.
-					</p>
-					
-					<p>
-						Since then, I've built renderers across all major graphics APIs and experimented with shaders. 
-						Currently (re)exploring Godot and Unreal Engine, and their source code, to understand graphics from a higher level perspective.
-					</p>
+			<footer class="footer-panel">
+				<p>Open to graphics, engine, and systems-oriented roles.</p>
+				<div class="footer-links">
+					<a href="mailto:nikhilchouhan2002@gmail.com">nikhilchouhan2002@gmail.com</a>
+					<a href="https://github.com/NikChouhan" target="_blank" rel="noreferrer">GitHub</a>
+					<a href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
 				</div>
-			</section>
-
-			<!-- <section id="contact" class="four">
-				<div class="container">
-					<header>
-						<h2>Contact</h2>
-					</header>
-					<form method="post" action="#">
-						<div class="row">
-							<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-							<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
-							<div class="col-12">
-								<textarea name="message" placeholder="Message"></textarea>
-							</div>
-							<div class="col-12">
-								<input type="submit" value="Send Message" />
-							</div>
-						</div>
-					</form>
-				</div>
-			</section> -->
-		</div>
-
-		<div id="footer">
-			<ul class="copyright">
-				<li>Made with <a href="http://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</div>
-
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/jquery.scrolly.min.js"></script>
-		<script src="assets/js/jquery.scrollex.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
-
-		<script>
-			function toggleTheme() {
-				const html = document.documentElement;
-				const themeIcon = document.getElementById('theme-icon');
-				const currentTheme = html.getAttribute('data-theme');
-				
-				if (currentTheme === 'dark') {
-					html.setAttribute('data-theme', 'light');
-					themeIcon.textContent = '🌙';
-					localStorage.setItem('theme', 'light');
-				} else {
-					html.setAttribute('data-theme', 'dark');
-					themeIcon.textContent = '☀️';
-					localStorage.setItem('theme', 'dark');
-				}
-			}
-			function loadTheme() {
-				const savedTheme = localStorage.getItem('theme') || 'light';
-				const html = document.documentElement;
-				const themeIcon = document.getElementById('theme-icon');
-				
-				html.setAttribute('data-theme', savedTheme);
-				themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-			}
-
-			document.addEventListener('DOMContentLoaded', loadTheme);
-		</script>
-	</body>
+			</footer>
+		</main>
+	</div>
+</body>
 </html>
